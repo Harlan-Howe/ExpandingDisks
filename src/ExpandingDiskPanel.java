@@ -10,7 +10,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     private final BufferedImage buffer; // the area we will be drawing into.
     private Disk currentDisk;           // the disk that is currently expanding.
     private ArrayList<Disk> diskList;
-    // private ArrayList<Spike> spikeList;
+    private ArrayList<Spike> spikeList;
     private final Object bufferMutex;   // this is an object that allows us to "lock" the associated variable so only one
     //                                     thread can access it at a time.
     private final Object diskListMutex, spikeListMutex;
@@ -22,7 +22,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         buffer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         bufferMutex = new Object();
         diskList = new ArrayList<Disk>();
-        // spikeList = new ArrayList<Spike>();
+        spikeList = new ArrayList<Spike>();
         diskListMutex = new Object();
         spikeListMutex = new Object();
         addMouseListener(this);
@@ -45,22 +45,60 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
     public void redrawAllObjects()
     {
+        synchronized(bufferMutex)
+        {
+            Graphics g = buffer.getGraphics();
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            synchronized (diskListMutex)
+            {
+                // tell each disk to draw self.
+            }
+        }
+        repaintAllSpikes();
+    }
 
+    public void repaintAllSpikes()
+    {
+        if (spikeList.isEmpty())
+            return;
+        synchronized(bufferMutex)
+        {
+            Graphics g = buffer.getGraphics();
+            synchronized (spikeListMutex)
+            {
+                // tell each disk to draw self.
+            }
+        }
     }
 
     public void addSpike(int x, int y)
     {
-
+        Spike spikeToAdd = new Spike(x,y);
+        killAllDisksTouchingSpike(spikeToAdd);
+        synchronized (spikeListMutex)
+        {
+            spikeList.add(spikeToAdd);
+        }
+        redrawAllObjects();
     }
 
     public void killAllDisksTouchingSpike(Spike spike)
     {
+        synchronized (diskListMutex)
+        {
 
+        }
     }
 
     public void removeNearestSpike(int x, int y)
     {
-
+        if (spikeList.isEmpty())
+            return;
+        synchronized (spikeListMutex)
+        {
+            // find the spike that is closest to given (x,y)
+        }
     }
 
 //    public void removeAllDisksTouchingSpike(Spike spike)
