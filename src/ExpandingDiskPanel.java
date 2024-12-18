@@ -72,7 +72,12 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         return false;
     }
 
-
+    public boolean isDiskTouchingWall(Disk d)
+    {
+        // your answer should depend on the distance between the currentDisk's (x,y) center and the edges of the walls,
+        //   as well as the radius of the currentDisk.
+        return false;
+    }
 
     public void redrawAllObjects()
     {
