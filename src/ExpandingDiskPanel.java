@@ -54,12 +54,25 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
     }
 
+    public void drawCurrentDisk()
+    {
+        if (currentDisk == null)
+            return;
+        synchronized (bufferMutex)
+        {
+            Graphics g = buffer.getGraphics();
+            currentDisk.drawSelf(g);
+        }
+    }
+
     public boolean areDisksTouching(Disk d1, Disk d2)
     {
         // your answer should depend on the radii of the two disks and their separation. Be sure to use method in Disk
         //  to find separation.
         return false;
     }
+
+
 
     public void redrawAllObjects()
     {
