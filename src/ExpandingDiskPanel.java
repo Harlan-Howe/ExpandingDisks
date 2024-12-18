@@ -40,6 +40,17 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
     public void expandCurrentDisk()
     {
+        if (currentDisk == null)
+            return;
+
+        currentDisk.expand();
+        // if current disk is touching a spike, reset current disk to a new disk and return.
+
+        // tell the currentDisk to draw itself.
+
+        // If current disk is touching any other disk or the edge of the window, copy this disk into the list
+        //    of disks and then reset current disk to a new disk.
+
 
     }
 
