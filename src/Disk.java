@@ -3,7 +3,7 @@ import java.awt.*;
 public class Disk implements Constants
 {
     protected int x, y;
-    private int radius;
+    protected int radius;
     private final Color color; // "final" because once we initialize them, they don't change.
 
     public Disk()
