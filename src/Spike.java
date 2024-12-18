@@ -6,6 +6,7 @@ public class Spike extends Disk
     {
         x = inX;
         y = inY;
+        radius = 0;
     }
 
     public void expand()
