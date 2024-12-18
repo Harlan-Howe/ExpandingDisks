@@ -103,7 +103,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
             Graphics g = buffer.getGraphics();
             synchronized (spikeListMutex)
             {
-                // tell each disk to draw self.
+                // tell each spike to draw self.
             }
         }
     }
