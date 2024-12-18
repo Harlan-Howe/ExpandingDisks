@@ -106,10 +106,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         }
     }
 
-//    public void removeAllDisksTouchingSpike(Spike spike)
-//    {
 //
-//    }
 
     @Override
     public void mouseClicked(MouseEvent e)
