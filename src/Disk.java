@@ -2,9 +2,9 @@ import java.awt.*;
 
 public class Disk implements Constants
 {
-    private final int x, y;  // "final" because once we initialize them, they don't change.
+    protected int x, y;
     private int radius;
-    private final Color color;
+    private final Color color; // "final" because once we initialize them, they don't change.
 
     public Disk()
     {
