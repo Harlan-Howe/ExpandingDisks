@@ -38,7 +38,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         }
     }
 
-    public void expandCurrentDisk()
+    public void doAnimationStep()
     {
         if (currentDisk == null)
             return;
@@ -210,7 +210,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
                 difference = System.currentTimeMillis() - start;
                 if (difference >= MILLISECONDS_PER_STEP)
                 {
-                    expandCurrentDisk();
+                    doAnimationStep();
                     start = System.currentTimeMillis();
                 }
                 try
