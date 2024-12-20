@@ -14,11 +14,13 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     private final Object bufferMutex;   // this is an object that allows us to "lock" the associated variable so only one
     //                                     thread can access it at a time.
     private final Object diskListMutex, spikeListMutex;
+    private boolean isPaused;
 
 
     public ExpandingDiskPanel()
     {
         super();
+        isPaused = false;
         buffer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         bufferMutex = new Object();
         diskList = new ArrayList<Disk>();
@@ -27,6 +29,11 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         spikeListMutex = new Object();
         addMouseListener(this);
         currentDisk = new Disk();
+    }
+
+    public void setPaused(boolean paused)
+    {
+        isPaused = paused;
     }
 
     public void paintComponent(Graphics g)
@@ -65,7 +72,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
     public void doAnimationStep()
     {
-        if (currentDisk == null)
+        if (currentDisk == null || isPaused)
             return;
 
         currentDisk.expand();
