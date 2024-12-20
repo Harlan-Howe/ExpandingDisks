@@ -10,5 +10,6 @@ public class ExpandingDisksFrame extends JFrame implements Constants
         getContentPane().setLayout(new GridLayout(1,1));
         getContentPane().add(new ExpandingDiskPanel());
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
