@@ -119,6 +119,27 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         repaintAllSpikes();
     }
 
+    public void clearAllDisks()
+    {
+        synchronized (diskListMutex)
+        {
+            diskList.clear();
+        }
+        selectNewCurrentDisk();
+        redrawAllObjects();
+    }
+
+    public void clearAllSpikes()
+    {
+        synchronized (spikeListMutex)
+        {
+            spikeList.clear();
+        }
+        if (currentDisk == null)
+            selectNewCurrentDisk();
+        redrawAllObjects();
+    }
+
     public void repaintAllSpikes()
     {
         if (spikeList.isEmpty())
