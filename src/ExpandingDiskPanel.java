@@ -38,6 +38,31 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         }
     }
 
+    public void selectNewCurrentDisk()
+    {
+        for (int i=0; i<NUM_TRIES_TO_MAKE_NEW_DISK; i++)
+        {
+            currentDisk = new Disk();
+            boolean foundGoodDisk = true;
+            synchronized (diskListMutex)
+            {
+                for (Disk d:diskList)
+                {
+                    if (areDisksTouching(currentDisk, d))
+                    {
+                        foundGoodDisk = false;
+                        break;
+                    }
+                }
+                if (foundGoodDisk)
+                    return;
+            }
+        }
+        // never found a good disk.
+        currentDisk = null;
+    }
+
+
     public void doAnimationStep()
     {
         if (currentDisk == null)
