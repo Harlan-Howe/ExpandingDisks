@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/**
+ * The Disk class describes a circular area of the screen that is filled in with a given color. The circle has the
+ * option to enlarge.
+ */
 public class Disk implements Constants
 {
     protected int x, y;
