@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/**
+ * A spike is a subclass of Disk that doesn't expand, and which draws itself as a flashing 3-pixel box. (In this
+ * program, a spike coming into contact with a Disk will kill the disk.)
+ */
 public class Spike extends Disk
 {
     public Spike(int inX, int inY)
