@@ -14,6 +14,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     private final Object bufferMutex;   // this is an object that allows us to "lock" the associated variable so only one
     //                                     thread can access it at a time.
     private final Object diskListMutex, spikeListMutex;
+    private final AnimatedBufferThread abThread;
     private boolean isPaused;
 
 
@@ -29,11 +30,14 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         spikeListMutex = new Object();
         addMouseListener(this);
         currentDisk = new Disk();
+        abThread = new AnimatedBufferThread();
+        abThread.start();
     }
 
     public void setPaused(boolean paused)
     {
         isPaused = paused;
+        repaint();
     }
 
     public void paintComponent(Graphics g)
@@ -41,19 +45,29 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         super.paintComponent(g);  // wipe panel
         synchronized (bufferMutex) // lock the buffer while we draw it to the screen.
         {
-            g.drawImage(buffer, 0, 0 , this);
+            g.drawImage(buffer, 0, 0, this);
+        }
+        // potentially draw outline around edge of panel if no disks are growing.
+        if (isPaused || currentDisk == null)
+        {
+            if (isPaused)
+                g.setColor(Color.GREEN);
+            else
+                g.setColor(Color.YELLOW);
+            ((Graphics2D)g).setStroke(new BasicStroke(6));
+            g.drawRect(0,0,getWidth(),getHeight());
         }
     }
 
     public void selectNewCurrentDisk()
     {
-        for (int i=0; i<NUM_TRIES_TO_MAKE_NEW_DISK; i++)
+        for (int i = 0; i < NUM_TRIES_TO_MAKE_NEW_DISK; i++)
         {
             currentDisk = new Disk();
             boolean foundGoodDisk = true;
             synchronized (diskListMutex)
             {
-                for (Disk d:diskList)
+                for (Disk d : diskList)
                 {
                     if (areDisksTouching(currentDisk, d))
                     {
@@ -67,23 +81,47 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         }
         // never found a good disk.
         currentDisk = null;
+        repaint();
     }
 
 
+    public boolean areDisksTouching(Disk d1, Disk d2)
+    {
+        // TODO: you write this.
+        // your answer should depend on the radii of the two disks and their separation. Be sure to use method in Disk
+        //  to find separation.
+        return false;
+    }
+
+    public boolean isDiskTouchingWall(Disk d)
+    {
+        // TODO: you write this.
+        // your answer should depend on the distance between the currentDisk's (x,y) center and the edges of the walls,
+        //   as well as the radius of the currentDisk.
+        return false;
+    }
+
     public void doAnimationStep()
     {
+        repaintAllSpikes();
         if (currentDisk == null || isPaused)
             return;
 
         currentDisk.expand();
-        // if current disk is touching a spike, reset current disk to a new disk and return.
-
+        synchronized(spikeListMutex)
+        {
+            // if current disk is touching a spike, select a new current disk, redrawAllObjects,  and return.
+            // TODO: you write this. (Be sure to use the methods you just wrote.)
+        }
         // tell the currentDisk to draw itself.
+        drawCurrentDisk();
 
-        // If current disk is touching any other disk or the edge of the window, copy this disk into the list
-        //    of disks and then reset current disk to a new disk.
-
-
+        synchronized (diskListMutex)
+        {
+            // If current disk is touching any other disk or the edge of the window, copy this disk into the list
+            //    of disks and then reset current disk to a new disk.
+            // TODO: you write this. (Be sure to use the methods you just wrote.)
+        }
     }
 
     public void drawCurrentDisk()
@@ -97,30 +135,16 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         }
     }
 
-    public boolean areDisksTouching(Disk d1, Disk d2)
-    {
-        // your answer should depend on the radii of the two disks and their separation. Be sure to use method in Disk
-        //  to find separation.
-        return false;
-    }
-
-    public boolean isDiskTouchingWall(Disk d)
-    {
-        // your answer should depend on the distance between the currentDisk's (x,y) center and the edges of the walls,
-        //   as well as the radius of the currentDisk.
-        return false;
-    }
-
     public void redrawAllObjects()
     {
-        synchronized(bufferMutex)
+        synchronized (bufferMutex)
         {
             Graphics g = buffer.getGraphics();
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             synchronized (diskListMutex)
             {
-                // tell each disk to draw self.
+                // TODO: tell each disk to draw self.
             }
         }
         repaintAllSpikes();
@@ -151,24 +175,27 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     {
         if (spikeList.isEmpty())
             return;
-        synchronized(bufferMutex)
+        synchronized (bufferMutex)
         {
             Graphics g = buffer.getGraphics();
             synchronized (spikeListMutex)
             {
-                // tell each spike to draw self.
+                // TODO: You write this. Tell each spike to draw self.
             }
         }
+        repaint();
     }
 
     public void addSpike(int x, int y)
     {
-        Spike spikeToAdd = new Spike(x,y);
+        Spike spikeToAdd = new Spike(x, y);
         killAllDisksTouchingSpike(spikeToAdd);
         synchronized (spikeListMutex)
         {
             spikeList.add(spikeToAdd);
         }
+        if (currentDisk == null)
+            selectNewCurrentDisk();
         redrawAllObjects();
     }
 
@@ -176,7 +203,8 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     {
         synchronized (diskListMutex)
         {
-
+            // TODO: you write this. Check each of the disks; if any are touching the given spike, remove them from the
+            //        disk list.
         }
     }
 
@@ -189,13 +217,13 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
         synchronized (spikeListMutex)
         {
-            // find the spike that is closest to given (x,y), if any are found closer than MAX_DISTANCE_TO_REMOVE_SPIKE.
+            // TODO: find the spike that is closest to given (x,y), if any are found closer than
+            //  MAX_DISTANCE_TO_REMOVE_SPIKE.
 
-            // remove that spike from the spikeList, if there is one.
+            // TODO: After that search... remove that spike from the spikeList, if there is one.
         }
+        redrawAllObjects();
     }
-
-//
 
     @Override
     public void mouseClicked(MouseEvent e)
@@ -217,8 +245,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         {
             System.out.println(" Shift is pressed.");
             removeNearestSpike(e.getX(), e.getY());
-        }
-        else
+        } else
         {
             System.out.println();
             addSpike(e.getX(), e.getY());
@@ -239,18 +266,6 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
 
     class AnimatedBufferThread extends Thread
     {
-        private boolean shouldInterrupt;
-        private boolean doingExpansionProcess;
-
-        public AnimatedBufferThread()
-        {
-            shouldInterrupt = false;
-            doingExpansionProcess = false;
-        }
-
-        public void interrupt() { shouldInterrupt = true; doingExpansionProcess = false;}
-        public void startExpansionProcess() {doingExpansionProcess = true;}
-        public boolean isDoingExpansionProcess() {return doingExpansionProcess;}
 
         public void run() // this is what gets called when we tell this thread to start(). You should _NEVER_ call this
         // method directly.
@@ -270,12 +285,13 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
                 {
                     //noinspection BusyWait
                     Thread.sleep(1); // wait a quarter second before you consider running again.
-                }catch (InterruptedException iExp)
+                } catch (InterruptedException iExp)
                 {
-                    iExp.printStackTrace();
+                    System.out.println("AnimatedBufferThread was interrupted.");
+                    break;
                 }
-                shouldInterrupt = false; // reset this to try again, if needed.
             }
         }
     }
+
 }
