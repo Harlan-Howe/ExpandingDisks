@@ -24,6 +24,11 @@ public class ExpandingDisksFrame extends JFrame implements Constants, ActionList
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * builds the panel at the bottom of the screen with buttons in it; links these buttons' actions to the
+     * actionPerformed() method.
+     * @return - the JPane generated.
+     */
     public JPanel createButtonPane()
     {
         JPanel thePanel = new JPanel(new FlowLayout());
@@ -39,8 +44,8 @@ public class ExpandingDisksFrame extends JFrame implements Constants, ActionList
         clearBothButton.addActionListener(this);
         thePanel.add(clearBothButton);
 
-        pauseToggle = new JToggleButton(pauseIcon, false);
-        pauseToggle.setSelectedIcon(playIcon);
+        pauseToggle = new JToggleButton(pauseIcon, false);  // default appearance is "||", start unselected
+        pauseToggle.setSelectedIcon(playIcon); // if the button is pressed, show the play icon.
         pauseToggle.addActionListener(this);
         pauseToggle.setSelected(false);
 
@@ -50,6 +55,9 @@ public class ExpandingDisksFrame extends JFrame implements Constants, ActionList
     }
 
     @Override
+    /**
+     * responds to the user's press of the buttons.
+     */
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == clearDisksButton)
