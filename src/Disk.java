@@ -14,21 +14,33 @@ public class Disk implements Constants
         color = new Color((int)(Math.random()*256),(int)(Math.random()*256), (int)(Math.random()*256));
     }
 
+    /**
+     * finds the distance from the center of this disk to the center of the other disk.
+     * @param otherDisk - another Disk object to which we wish to find the distance.
+     * @return - the distance, in pixels.
+     */
     public double distanceToDisk(Disk otherDisk)
     {
         return Math.sqrt(Math.pow(this.x-otherDisk.x, 2) + Math.pow(this.y-otherDisk.y, 2));
     }
 
+    /**
+     * increment the radius of this disk.
+     */
     public void expand()
     {
         radius ++;
     }
 
+    /**
+     * draws in a filled circle of the "color" for this Disk, centered at (x,y) with radius "radius."
+     * @param g - the graphics context in which to do the drawing.
+     */
     public void drawSelf(Graphics g)
     {
+        g.setColor(color);
         // TODO: Fix this code.
         // the following is wrong, but it has the general syntax you'll need.
-        g.setColor(color);
         g.fillOval(x,y,radius,radius); // left, top, width, height
     }
 
