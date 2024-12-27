@@ -45,7 +45,7 @@ public class Disk implements Constants
         g.setColor(color);
         // TODO: Fix this code.
         // the following is wrong, but it has the general syntax you'll need.
-        g.fillOval(x,y,radius,radius); // left, top, width, height
+        g.fillOval(x,y,radius,radius); // It really should be (left, top, width, height).
     }
 
     public int getX()
