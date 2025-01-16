@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ExpandingDisksFrame extends JFrame implements Constants, ActionListener
+public class ExpandingDisksFrame extends JFrame implements ActionListener
 {
     private JButton clearDisksButton, clearSpikesButton, clearBothButton;
     private JToggleButton pauseToggle;
@@ -13,7 +13,7 @@ public class ExpandingDisksFrame extends JFrame implements Constants, ActionList
     public ExpandingDisksFrame()
     {
         super("Expanding Disks");
-        setSize(SCREEN_WIDTH, SCREEN_HEIGHT+28+39); // 28 is for Mac title bar. 39 is for button bar.
+        setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT+28+39); // 28 is for Mac title bar. 39 is for button bar.
         playIcon = new ImageIcon("play.png");
         pauseIcon = new ImageIcon("pause.png");
         getContentPane().setLayout(new BorderLayout());
