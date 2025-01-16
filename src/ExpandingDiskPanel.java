@@ -45,6 +45,12 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         repaint();
     }
 
+    /**
+     * draws the "buffer" - a rectangular area the same size as this panel that you've been drawing into with other
+     * commands - onto the screen. If we are not actively animating, it will draw a border around the perimeter, as
+     * well to indicate that.
+     * @param g the <code>Graphics</code> object used to draw to the panel.
+     */
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);  // wipe panel
