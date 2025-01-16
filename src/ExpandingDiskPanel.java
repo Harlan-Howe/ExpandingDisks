@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class ExpandingDiskPanel extends JPanel implements MouseListener, Constants
+public class ExpandingDiskPanel extends JPanel implements MouseListener
 {
     private final BufferedImage buffer; // the area we will be drawing into.
     private Disk currentDisk;           // the disk that is currently expanding.
@@ -27,7 +27,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     {
         super();
         isPaused = false;
-        buffer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        buffer = new BufferedImage(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         bufferMutex = new Object();
         diskList = new ArrayList<Disk>();
         spikeList = new ArrayList<Spike>();
@@ -35,6 +35,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         spikeListMutex = new Object();
         addMouseListener(this);
         currentDisk = new Disk();
+        redrawAllObjects();
         abThread = new AnimatedBufferThread();
         abThread.start();
     }
@@ -78,7 +79,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
      */
     public void selectNewCurrentDisk()
     {
-        for (int i = 0; i < NUM_TRIES_TO_MAKE_NEW_DISK; i++)
+        for (int i = 0; i < Constants.NUM_TRIES_TO_MAKE_NEW_DISK; i++)
         {
             currentDisk = new Disk();
             boolean foundGoodDisk = true;
@@ -186,8 +187,8 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
         synchronized (bufferMutex)
         {
             Graphics g = buffer.getGraphics();
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            g.setColor(Constants.BACKGROUND_COLOR);
+            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             synchronized (diskListMutex)
             {
                 // TODO: tell each disk to draw self.
@@ -284,7 +285,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
     {
         if (spikeList.isEmpty())
             return;
-        double closestDistance = MAX_DISTANCE_TO_REMOVE_SPIKE;
+        double closestDistance = Constants.MAX_DISTANCE_TO_REMOVE_SPIKE;
         Spike nearestSpike = null;
 
         synchronized (spikeListMutex)
@@ -380,7 +381,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener, Constan
             while (true)
             {
                 difference = System.currentTimeMillis() - start;
-                if (difference >= MILLISECONDS_PER_STEP)
+                if (difference >= Constants.MILLISECONDS_PER_STEP)
                 {
                     doAnimationStep();
                     start = System.currentTimeMillis();
