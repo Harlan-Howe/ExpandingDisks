@@ -163,6 +163,8 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
             //    of disks and then b) select a new current disk.
             // TODO: you write this. (Be sure to use the methods you just wrote.)
         }
+
+        repaint();
     }
 
     /**
