@@ -43,7 +43,7 @@ public class Disk implements Constants
     public void drawSelf(Graphics g)
     {
         g.setColor(color);
-        // TODO: Fix this code.
+        // TODO #0: Fix this code.
         // the following is wrong, but it has the general syntax you'll need.
         g.fillOval(x,y,radius,radius); // It really should be (left, top, width, height).
     }

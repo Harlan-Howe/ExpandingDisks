@@ -112,7 +112,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
      */
     public boolean areDisksTouching(Disk d1, Disk d2)
     {
-        // TODO: you write this.
+        // TODO #2: you write this.
         // your answer should depend on the radii of the two disks and their separation. Be sure to use method in Disk
         //  to find separation.
         return false;
@@ -126,7 +126,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
      */
     public boolean isDiskTouchingWall(Disk d)
     {
-        // TODO: you write this.
+        // TODO #3: you write this.
         // your answer should depend on the distance between the currentDisk's (x,y) center and the edges of the walls,
         //   as well as the radius of the currentDisk.
         // hint: you may find getWidth() and getHeight() handy to find the size of the window.
@@ -152,7 +152,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
         synchronized(spikeListMutex)
         {
             // if current disk is touching a spike: a) select a new current disk, b) redrawAllObjects,  and c) return.
-            // TODO: you write this. (Be sure to use the methods you just wrote.)
+            // TODO #6: you write this. (Be sure to use the methods you just wrote.)
         }
         // tell the currentDisk to draw itself.
         drawCurrentDisk();
@@ -161,7 +161,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
         {
             // If current disk is touching any other disk or the edge of the window: a) copy this disk into the list
             //    of disks and then b) select a new current disk.
-            // TODO: you write this. (Be sure to use the methods you just wrote.)
+            // TODO #4: you write this. (Be sure to use the methods you just wrote.)
         }
 
         repaint();
@@ -193,7 +193,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
             g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             synchronized (diskListMutex)
             {
-                // TODO: tell each disk to draw self.
+                // TODO #1: tell each disk to draw self.
             }
         }
         repaintAllSpikes();
@@ -211,7 +211,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
             Graphics g = buffer.getGraphics();
             synchronized (spikeListMutex)
             {
-                // TODO: You write this. Tell each spike to draw self.
+                // TODO #5: You write this. Tell each spike to draw self.
             }
         }
         repaint();
@@ -271,7 +271,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
     {
         synchronized (diskListMutex)
         {
-            // TODO: you write this. Check each of the disks; if any are touching the given spike, remove them from the
+            // TODO #7: you write this. Check each of the disks; if any are touching the given spike, remove them from the
             //        disk list.
             // Note: remember that Spikes are also disks; there is a method you wrote earlier that will be handy.
         }
@@ -292,10 +292,10 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
 
         synchronized (spikeListMutex)
         {
-            // TODO: find the spike that is closest to given (x,y), if any are found closer than
+            // TODO #8: find the spike that is closest to given (x,y), if any are found closer than
             //  MAX_DISTANCE_TO_REMOVE_SPIKE.
 
-            // TODO: After that search... remove that spike from the spikeList, if there is one.
+            // TODO #9: After that search... remove that spike from the spikeList, if there is one.
         }
         redrawAllObjects();
     }
