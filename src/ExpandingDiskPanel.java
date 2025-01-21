@@ -286,10 +286,6 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
      */
     public void removeNearestSpike(int x, int y)
     {
-        if (spikeList.isEmpty())
-            return;
-        double closestDistance = Constants.MAX_DISTANCE_TO_REMOVE_SPIKE;
-        Spike nearestSpike = null;
 
         synchronized (spikeListMutex)
         {
