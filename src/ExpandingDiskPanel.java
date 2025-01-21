@@ -299,7 +299,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
 
     @Override
     /**
-     * because we are implementing MouseListener, we must have this method... but it does nothing.
+     * because we are implementing MouseListener, we must have this method... but we've chosen to make it do nothing.
      * (It is called when the user presses and releases a mouse at the same location.)
      */
     public void mouseClicked(MouseEvent e)
@@ -309,7 +309,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
 
     @Override
     /**
-     * because we are implementing MouseListener, we must have this method... but it does nothing.
+     * because we are implementing MouseListener, we must have this method... but we've chosen to make it do nothing.
      * (It is called when the user first presses a mouse button.)
      */
     public void mousePressed(MouseEvent e)
@@ -339,7 +339,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
 
     @Override
     /**
-     * because we are implementing MouseListener, we must have this method... but it does nothing.
+     * because we are implementing MouseListener, we must have this method... but we've chosen to make it do nothing.
      * (It is called when the user moves the mouse into this panel.)
      */
     public void mouseEntered(MouseEvent e)
@@ -349,7 +349,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
 
     @Override
     /**
-     * because we are implementing MouseListener, we must have this method... but it does nothing.
+     * because we are implementing MouseListener, we must have this method... but we've chosen to make it do nothing.
      * (It is called when the user moves the mouse out of this panel.)
      */
     public void mouseExited(MouseEvent e)
