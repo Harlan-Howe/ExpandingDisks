@@ -103,6 +103,23 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
         repaint();
     }
 
+    /**
+     * draws all the disks in diskList and all the spikes in spikeList to the buffer.
+     */
+    public void redrawAllObjects()
+    {
+        synchronized (bufferMutex)
+        {
+            Graphics g = buffer.getGraphics();
+            g.setColor(Constants.BACKGROUND_COLOR);
+            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+            synchronized (diskListMutex)
+            {
+                // TODO #1: tell each disk to draw self.
+            }
+        }
+        repaintAllSpikes();
+    }
 
     /**
      * determines whether the two disks are touching, overlapping or one contains another. Returns true UNLESS the
@@ -182,23 +199,6 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
         }
     }
 
-    /**
-     * draws all the disks in diskList and all the spikes in spikeList to the buffer.
-     */
-    public void redrawAllObjects()
-    {
-        synchronized (bufferMutex)
-        {
-            Graphics g = buffer.getGraphics();
-            g.setColor(Constants.BACKGROUND_COLOR);
-            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-            synchronized (diskListMutex)
-            {
-                // TODO #1: tell each disk to draw self.
-            }
-        }
-        repaintAllSpikes();
-    }
 
     /**
      * draws all the spikes in the spikeList to the buffer.
