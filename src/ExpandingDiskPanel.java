@@ -79,10 +79,11 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
      */
     public void selectNewCurrentDisk()
     {
+        boolean foundGoodDisk;
         for (int i = 0; i < Constants.NUM_TRIES_TO_MAKE_NEW_DISK; i++)
         {
             currentDisk = new Disk();
-            boolean foundGoodDisk = true;
+            foundGoodDisk = true;
             synchronized (diskListMutex)
             {
                 for (Disk d : diskList)
