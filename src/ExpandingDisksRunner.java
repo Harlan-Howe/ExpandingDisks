@@ -1,6 +1,6 @@
 public class ExpandingDisksRunner
 {
-    public void main()
+    public static void main(String[] args)
     {
         ExpandingDisksFrame window = new ExpandingDisksFrame();
         window.setVisible(true);

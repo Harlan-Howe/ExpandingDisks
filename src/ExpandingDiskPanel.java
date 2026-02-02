@@ -325,7 +325,7 @@ public class ExpandingDiskPanel extends JPanel implements MouseListener
      */
     public void mouseReleased(MouseEvent e)
     {
-        System.out.print(STR."Mouse released at (\{e.getX()}, \{e.getY()}).");
+        System.out.print("Mouse released at (" + e.getX() + ", " + e.getY() + ").");
         if (e.isShiftDown())
         {
             System.out.println(" Shift is pressed.");

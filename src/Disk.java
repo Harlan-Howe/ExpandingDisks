@@ -66,6 +66,6 @@ public class Disk implements Constants
     @Override
     public String toString()
     {
-        return STR."Disk{x=\{x}, y=\{y}, radius=\{radius}, color=\{color}}";
+        return "Disk{x=" + x + ", y=" + y + ", radius=" + radius + ", color=" + color + "}";
     }
 }
